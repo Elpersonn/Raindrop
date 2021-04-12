@@ -45,6 +45,7 @@ local function findFile(filename)
 end
 
 app:get("/*", function(self)
+    self.domain = os.getenv("DOMAIN")
 	local file = findFile(self.params.splat)
 	local filesplit = mysplit(self.params.splat, ".")
 	local filetype = filesplit[#filesplit]

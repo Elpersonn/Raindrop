@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<% local domain = os.getenv("DOMAIN") %>
 <html style="height:100%">
 <head>
+<% print(domain) %>
 <meta name="viewport" content="width=device-width,minimum-scale=0.1" />
 <meta property="og:url" content=<%= "https://"..domain.."/"..params.splat %> />
 <meta property="og:title" content="<%= title %>"  />
@@ -24,7 +24,7 @@
 <img src=<%= "https://elperson.pro/"..params.splat %>>
 <% elseif type == "video" then %>
 <video controls autoplay name="media">
-	<source src=<%="https://elperson.pro/"..params.splat %> />
+	<source src=<%="https://"..domain..params.splat %> />
 </video>
 <% end %>
 </body>
