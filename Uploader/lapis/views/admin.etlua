@@ -1,4 +1,0 @@
-<h1 style="color:rgb(255,0,0); background-color:rgb(0,0,0);"> if u didnt log in with admin admin the report this to Elperson </h1>
-<form>
-<button type="submit" formmethod="post" name="logout"> Log Out </button>
-</form>
