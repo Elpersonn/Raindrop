@@ -14,8 +14,6 @@ services:
   web:
     volumes:
       - ./Uploader:/srv
-    environment:
-        - DOMAIN=127.0.0.1 # The domain your server runs on.
     build: ./Uploader
     ports:
       - "80:8080"
