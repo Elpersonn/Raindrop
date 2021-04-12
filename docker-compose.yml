@@ -10,8 +10,7 @@ services:
     environment:
       - POSTGRES_DB=uploader # Use lowercase.
       - POSTGRES_USER=admin # Use lowercase.
-      - POSTGRES_PASSWORD=Pj+5K]hDT:FT>(8.
-      - PGPASSWORD=Pj+5K]hDT:FT>(8.
+      - POSTGRES_PASSWORD=Pj+5K]hDT:FT>(8. # CHANGE THIS
   web:
     volumes:
       - ./Uploader:/srv
