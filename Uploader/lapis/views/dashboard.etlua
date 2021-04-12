@@ -1,3 +1,0 @@
-<h1 style="text-align: center; font-size: 50px;"><span style="color: #ffffff;"><strong>Hello <%= session.USER %></strong></span></h1>
-<hr />
-<p><span style="color: #ffffff;">Today is: <%= ngx.utctime() %> UTC</span></p>
