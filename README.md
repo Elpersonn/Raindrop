@@ -1,4 +1,7 @@
 # Raindrop
+V 0.1.3
 Lua based ShareX uploader.
 ## Installation
-Chmod html/files for rw / rwx so that lua can write
+1. Clone this / download this repository.
+2. Open terminal inside the repository directory.
+3. ```docker-compose up```
