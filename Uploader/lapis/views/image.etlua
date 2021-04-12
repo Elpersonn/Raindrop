@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<% local domain = os.getenv("DOMAIN") %>
+<html style="height:100%">
+<head>
+<meta name="viewport" content="width=device-width,minimum-scale=0.1" />
+<meta property="og:url" content=<%= "https://"..domain.."/"..params.splat %> />
+<meta property="og:title" content="<%= title %>"  />
+<meta property="og:description" content="<%= desc %>" />
+<% if type == "image" then %>
+<meta property="og:image" content=<%= "https://"..domain.."/"..params.splat %> />
+<meta property="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="<%= title or " " %>" /> <!-- This is in case you want the desc to display but the title to be empty -->
+<meta name="twitter:image" content=" <%= "https://"..domain.."/"..params.splat %>" />
+<% elseif type == "video" then %>
+<meta property="og:video" content=<%= "https://"..domain.."/"..params.splat %> />
+<meta property="og:video:height" content="720" />
+<meta property="og:video:width" content="1280" />
+<meta property="og:type" content="video.other" />
+<% end %>
+
+</head>
+<body style="background-color: black">
+<% if type == "image" then %>	
+<img src=<%= "https://elperson.pro/"..params.splat %>>
+<% elseif type == "video" then %>
+<video controls autoplay name="media">
+	<source src=<%="https://elperson.pro/"..params.splat %> />
+</video>
+<% end %>
+</body>
+</html>

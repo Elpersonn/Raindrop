@@ -1,0 +1,9 @@
+<h1 style="color:rgb(255,255,255)"><%= quotes[num]%> </h1>
+<% if GET.failed then %>
+<p name="text" style="color:rgb(255,0,0)">WRONG</p>
+<% end %>
+<form action=<% print("A") %>>
+	<input type="text" name="username">
+	<input type="password" name="secret">
+	<button name="button"  type="submit" formmethod="post"> login </button>
+</form>

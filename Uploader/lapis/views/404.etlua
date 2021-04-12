@@ -1,0 +1,2 @@
+<h1 style="text-align: center; font-size: 100px; font-family: 'Courier New', monospace;"><span style="color: #ff0000;"><strong>404</strong></span></h1>
+<h2 style="text-align: center;"><span style="color: #ff0000; font-family: 'Courier New', monospace;"><strong><%= req.request_uri %> Not Found!</strong></span></h2>

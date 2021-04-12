@@ -1,0 +1,9 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+</head>
+ <body style="background-color:rgb(0,0,0)">
+	<% content_for("inner") %>	
+ </body>
+</html>
