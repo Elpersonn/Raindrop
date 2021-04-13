@@ -1,4 +1,6 @@
 
+-- Made by Elperson
+-- https://github.com/Elpersonn/Raindrop
 local lapis = require("lapis")
 local db = require("lapis.db")
 local app = require 'app'
