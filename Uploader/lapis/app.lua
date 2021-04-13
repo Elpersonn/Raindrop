@@ -1,5 +1,5 @@
 -- MADE BY ELPERSON IN POLAND
--- https://github.com/ElpersonPL/Raindrop
+-- https://github.com/Elpersonn/Raindrop
 local lapis = require("lapis")
 --local lfs = require("lfs")
 local app = lapis.Application()
