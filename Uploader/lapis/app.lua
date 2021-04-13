@@ -1,7 +1,7 @@
 -- MADE BY ELPERSON IN POLAND
 -- https://github.com/ElpersonPL/Raindrop
 local lapis = require("lapis")
-local lfs = require("lfs")
+--local lfs = require("lfs")
 local app = lapis.Application()
 local db = require("lapis.db")
 local bcrypt = require("bcrypt")
@@ -36,20 +36,20 @@ local function mysplit (inputstr, sep)
         end
         return t
 end
-local function findFile(filename)
+--[[local function findFile(filename)
 	for file in lfs.dir("/srv/lapis/html/files") do
 		if file == filename then
 			return file
 		end
 	end 
-end
+end]] -- Keeping it for "later"
 
 app:get("/*", function(self)
     self.domain = os.getenv("DOMAIN")
-	local file = findFile(self.params.splat)
 	local filesplit = mysplit(self.params.splat, ".")
 	local filetype = filesplit[#filesplit]
-	if file then
+    local res = ngx.location.capture("/files/"..self.params.splat)
+	if res.status then
 	   if self.params.title or self.params.desc then
 			self.title = self.params.title or self.params.splat
 			self.desc = self.params.desc or self.params.splat
@@ -58,7 +58,7 @@ app:get("/*", function(self)
 			return { layout = false, render = "image" }
 		
 	   else
-		ngx.exec("/files/"..file)
+            ngx.exec("/files/"..self.params.splat)
 	   end	
 	else
 		return { layout = "layout", render = "404", status = 404 }		
