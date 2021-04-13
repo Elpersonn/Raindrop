@@ -1,5 +1,5 @@
 # Raindrop
-V 0.1.4
+V 0.1.5
 Lua based ShareX uploader.
 ## Installation
 1. Clone this / download this repository.
