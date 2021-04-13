@@ -97,7 +97,7 @@ app:match("/upload", respond_to({
 	 end
     end,
     GET = function(self)
-        return "Raindrop 0.1.3"
+        return "Raindrop 0.1.5"
     end
 
 }))
