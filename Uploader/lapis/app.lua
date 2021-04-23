@@ -1,5 +1,5 @@
 -- MADE BY ELPERSON IN POLAND
--- https://github.com/ElpersonPL/Raindrop
+-- https://github.com/Elpersonn/Raindrop
 local lapis = require("lapis")
 --local lfs = require("lfs")
 local app = lapis.Application()
@@ -23,7 +23,7 @@ end
 app:enable("etlua")
 app:include("apps.uploads")
 app:get("/", function(self)
-  return "Raindrop 0.1.3"
+  return "Raindrop 0.1.6"
 end)
 
 local function mysplit (inputstr, sep)
@@ -42,7 +42,7 @@ end
 			return file
 		end
 	end 
-end]] -- Keeping it for "later"
+end]] -- Keeping this for "later" if I ever need it.
 
 app:get("/*", function(self)
     self.domain = os.getenv("DOMAIN")
@@ -58,7 +58,7 @@ app:get("/*", function(self)
 			return { layout = false, render = "image" }
 		
 	   else
-            ngx.exec("/files/"..self.params.splat)
+		ngx.exec("/files/"..self.params.splat)
 	   end	
 	else
 		return { layout = "layout", render = "404", status = 404 }		

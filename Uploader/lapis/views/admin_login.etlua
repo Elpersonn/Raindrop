@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+            input.in {
+                display: block;
+
+            }
+            .outer {
+                display: table;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+            }
+
+            .middle {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .inner {
+                margin-left: auto;
+                margin-right: auto;
+                width: 400px;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.4)
+            }
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 10%;
+
+
+            }
+    </style>
+    <script>
+        function closeModal() {
+            document.getElementsByClassName("modal")[0].style.display = "none";
+        };
+        function openModal(msg) {
+
+            document.getElementById("msg").innerHTML = msg;
+            document.getElementsByClassName("modal")[0].style.display = "inline";
+        };
+    </script>
+    <title>Admin Login</title>
+  </head>
+  <body>
+       <div class="modal">
+            <div class="modal-content">
+
+                <p id="msg"></p>
+                <button id="close" onclick="closeModal();"> X </button>
+
+            </div>
+       </div>
+       <div class="outer">
+            <div class="middle">
+                <div class="inner">
+                    <form>
+                        <label for="name"> Username:</label>
+                        <input type="text" id="name" class="in"/>
+                        <label for="passwd"> Password:</label>
+                        <input type="password" id="passwd" class="in"/>
+                        <input type="button" value="Login" onclick="openModal(document.getElementById('name').value)"/>
+                    </form>
+                </div>
+            </div>
+       </div>
+  </body>
+</html>

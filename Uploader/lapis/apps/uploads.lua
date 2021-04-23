@@ -1,4 +1,6 @@
 
+-- Made by Elperson
+-- https://github.com/Elpersonn/Raindrop
 local lapis = require("lapis")
 local db = require("lapis.db")
 local app = require 'app'
@@ -97,7 +99,7 @@ app:match("/upload", respond_to({
 	 end
     end,
     GET = function(self)
-        return "Raindrop 0.1.3"
+        return "Raindrop 0.1.6"
     end
 
 }))

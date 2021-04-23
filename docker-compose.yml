@@ -10,11 +10,13 @@ services:
     environment:
       - POSTGRES_DB=uploader # Use lowercase.
       - POSTGRES_USER=admin # Use lowercase.
-      - POSTGRES_PASSWORD=Pj+5K]hDT:FT>(8. # CHANGE THIS
+      - POSTGRES_PASSWORD=Pj+5K]hDT:FT>(8. # CHANGE THIS TO SOMETHING LONG.
   web:
     volumes:
       - ./Uploader:/srv
     build: ./Uploader
+    environment:
+      - DOMAIN=YOURDOMAIN.TLD # Replace this with your domain.
     ports:
       - "80:8080"
     depends_on:
