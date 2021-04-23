@@ -23,7 +23,7 @@ end
 app:enable("etlua")
 app:include("apps.uploads")
 app:get("/", function(self)
-  return "Raindrop 0.1.5"
+  return "Raindrop 0.1.6"
 end)
 
 local function mysplit (inputstr, sep)
