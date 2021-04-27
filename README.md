@@ -1,8 +1,7 @@
 # Raindrop
 V 0.1.6
 Lua based ShareX uploader.
-## Installation
-**FOR INSTALLATION PLEASE CONTACT ME PRIVATELY AS THIS GUIDE IS NOT FINISHED AND THINGS MAY CHANGE**
+## Installatio
 1. Clone this / download this repository.
 2. Modify docker-compose.yml
 3. Modify Uploader/lapis/domains.lua
