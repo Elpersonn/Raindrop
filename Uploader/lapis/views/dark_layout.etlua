@@ -1,9 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+  <script src="http://code.jquery.com/jquery-migrate-3.0.0.js"> </script>
  <meta charset="UTF-8">
 </head>
- <body style="background-color:rgb(0,0,0)">
+ <body style="background-color: #333333">
 	<% content_for("inner") %>	
  </body>
 </html>

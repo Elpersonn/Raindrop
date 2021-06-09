@@ -1,50 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333333;
-}
 
-li {
-  float: left;
-}
+  <title> Raindrop admin </title>
+  <link rel="stylesheet" href="/static/css/admin.css" />
+  <script src="/static/js/admin.js"></script>
+<h1 style="font-family:arial; text-align: center">Raindrop Admin Panel v1</h1>
+<button style="position: absolute; right: 0px; top: 0px; padding: 2px 100px; font-size: 20px"> Log Out </button>
+<div class="crAcc">
+  <p style="font-family:arial; font-size: 20px; font-weight: bold"> CREATE ACCOUNT </p>
+  <form>
+    <label for="user"> Username: </label>
+    <input type="text" id="user" style=""/>
+    <label for="passwd"> Password: </label>
+    <input type="password"  id="passwd" style=""/>
+    <input type="button" id="send" value="Create" style="display:block; padding: 1px 15px;" />
+    <p> Account type: </p>
+    <label> Admin
+    <input type="radio" id="admin"  name="perms" value="admin" >
+    </label>
+    <label> Regular user 
+    <input type="radio" id="usr"  name="perms" value="user"/>
+    </label>
+  </form>
+</div>
+<div class="delAcc">
+  <p class="divTitle">DELETE USER</p>
+  <form>
+    <label for="AccName">Account username: </label>
+    <input id="AccName" type="text" placeholder="E.g: joenuts123">
+    <br>
+    <input type="button" value="Delete" id="Delbtn">
+  </form>
+</div>
+<div class="delImg">
+  <p  style="font-family:arial; font-size:20px; font-weight: bold" > DELETE IMAGE </p>
+  <form>
+    <label for="img"> Image filename: </label>
+    <input style="display: block;" type="text" placeholder="E.g: ad1243ba.png" id="delname" />
+    <input type="button" value="Delete" id="delimg"/>
+    <input type="button" value="Get Image info" id="imginfo">
+  </form>
+</div>
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 16px;
-  text-decoration: none;
-}
-li p {
-  color: white;
-  font-size: 15px;
-
-
-
-
-}
-
-li a:hover {
-  background-color: #111111;
-}
-</style>
-</head>
-<body>
-
-
-<ul>
-  <li><p>ModPanel<p></li>
-  <li><a href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#about">About</a></li>
-</ul>
-
-</body>
-</html>
+<div id="CraCCmodal" title="Account created">
+  <p id="accname">Account Username: </p>
+  <p style="display:inline;">Account Password: </p> 
+  <span class="spoiler" style="display:inline-block;" id="pass"> joe </span>
+  <br>
+  <p style="display:inline;">API KEY: </p>
+  <span class="spoiler" id="apikey">12dasdasdsade3</span>
+</div>
+<div id="error" title="Error">
+  <p id="errormsg">An error occured while performing the operation.</p>
+</div>
+<div id="ImgInfo" title="Image info">
+  <p id="uploader" style="display:block;"></p>
+  <p id="date"></p>
+</div>
+<div id="confirm" title="Are you sure?">
+  <p id="text1"></p>
+</div>

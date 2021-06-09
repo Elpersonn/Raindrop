@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+
+
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        tr:hover { background-color: #f5f5f5;}
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            dataType: "json",
+            url: 'admin/getusers',
+            data: null,
+            success: function(data) {
+                $.each(data.dbres, function(key, val){
+                    var table = document.getElementById("table");
+                    var row = table.insertRow();
+                    row.insertCell(0).innerHTML = val.userid;
+                    row.insertCell(1).innerHTML = val.username;
+                    row.insertCell(2).innerHTML = val.apikey;
+
+                });
+
+
+            }
+        });
+    </script>
+  </head>
+  <body>
+    <h1 style="text-align: center"> SQL Query list test </h1>
+    <table style="width:100%" id="table">
+        <tr>
+            <th>UserId</th>
+            <th>Username</th>
+            <th>API_KEY</th>
+        </tr>
+
+
+
+    </table>
+  </body>
+</html>
+<!--
+
+<% for i,v in pairs(tbl) do %>
+            <tr id="<%= tbl[i].userid %>">
+                <td> <%= tbl[i].userid %> </td>
+                <td> <%= tbl[i].username %> </td>
+                <td> <%= tbl[i].apikey %> </td>
+                <td> <button> Delete </button> </td>
+            </tr>
+        <% end %>
+
+-->
