@@ -12,6 +12,26 @@ local util = require("lapis.util")
 local respond_to = require("lapis.application").respond_to
 local rounds = 10
 
+
+ 
+validate.validate_functions.low_or_eq = function(input, num)
+    local a = tonumber(input)
+    print(type(a))
+    if  a > num then
+        return input.." must be smaller or equal to "..num
+    elseif a <= num then
+        return true
+    end
+end
+validate.validate_functions.big_or_eq = function(input, num)
+    local a = tonumber(input)
+    if a < num then
+        return input.." must be bigger or equal to "..num
+    elseif a >= num then
+        return true
+    end
+end
+
 local function checkValid(sess)
     local sel = db.select("* FROM sessions WHERE sessid = ?", sess or "none")
     if sel[1] and os.time() - sel[1].crstamp < 1800 then -- 1800 seconds = 30 minutes
@@ -87,30 +107,29 @@ app:match("/admin/login", respond_to({
     end
 
 }))
-app:match("/admin/createuser", respond_to({
+app:match("/admin/createinvite", respond_to({
     POST = json_params(function(self)
-        if self.params.username and self.params.passwd and self.params.accType and checkValid(self.session.USER) and checkAdmin(self.session.USER) then
-            validate.assert_valid(self.params, {
-                { "username", exists = true, min_length = 3, max_length = 30, matches_pattern = "^%w+$"};
-                { "passwd", exists = true, min_length = 5};
-                { "accType", exists = true, one_of = {"user", "admin"}}
-            })
-            local dbsel = db.select("1 FROM users WHERE username = ?", self.params.username)
-            local T_apikey = string.random(20)
-            if not dbsel[1] then
-                db.insert("users", {
-                username = self.params.username, 
-                passwd = bcrypt.digest(self.params.passwd),
-                apikey = T_apikey,
-                perms = self.params.accType
-                })
-                return { status = 200, json = { accName = self.params.username, passwd = self.params.passwd, apikey = T_apikey}}
-            else
-                return {status = 409}
+        validate.assert_valid(self.params, {
+            { "amount", exists = true, is_integer = true, low_or_eq = tonumber(100), big_or_eq = 1}
+        })
+        if checkValid(self.session.USER) and checkAdmin(self.session.USER)  then
+            local invt = {}
+            for i = 1, self.params.amount do
+                local ainvite = "INVT-"..string.random(20)
+                local sel = db.select("invite FROM invites WHERE invite = ?", ainvite)
+                if not sel[1] then
+                    db.insert("invites", {
+                        invite = ainvite
+                    })
+                    table.insert(invt, ainvite)
+                    ngx.sleep(1)
+                else
+                    i = i - 1
+                end
             end
-        else
-            return { status = 401, redirect_to = "/admin/login"}
+            return { layout = false, json = { msg = invt}}
         end
+        
     end),
 }))
 app:match("/admin/deleteimg", respond_to({

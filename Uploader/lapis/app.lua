@@ -47,8 +47,9 @@ app:enable("etlua")
 app:include("apps.uploads")
 app:include("apps.admin")
 app:include("apps.shorten")
+app:include("apps.signup")
 app:get("/", function(self)
-    	return "Raindrop 1.6.1b"
+    	ngx.redirect("https://shoppy.gg/product/WBAO8BR")
 end)
 
 function string.split (inputstr, sep)
@@ -94,7 +95,7 @@ app:get("/domains", function(self)
 		self.dom = self.dom..", "..v
 	end
 	for i,v in pairs(domains.wildcard) do
-		self.wdom = self.wdom..", "..v
+		self.wdom = self.wdom.." "..v
 	end
 	return { layout = "dark_layout", render = "domains"}
 end)

@@ -3,12 +3,36 @@
 local lapis = require("lapis")
 local db = require("lapis.db")
 local app = require "app"
-
+local http = require("lapis.nginx.http")
 local util = require("lapis.util")
 local respond_to = require("lapis.application").respond_to
 --app.__base = app
 local forceDownload = {"html", "php", "css", "js", "sh", "ttf", "otf", "exe", "htm"} -- At first I wanted this to forceDownload the files but now I decided to make it just not pass them at all.
+local jsonmsg = {
+	["embeds"] = {{
+        ["title"] = "New upload",
+        ["color"] = 16711680,
+        ["url"] = "https://elperson.pro/",
+        ["fields"] = {
+			{["name"] = "Uploaded by", ["value"] = "%s"},
+			{["name"] = "Uploaded on", ["value"] = "%s"}
+		},
+    }}
+}
 
+local function dump(o)
+	if type(o) == 'table' then
+	   local s = '{ '
+	   for k,v in pairs(o) do
+		  if type(k) ~= 'number' then k = '"'..k..'"' end
+		  s = s .. '['..k..'] = ' .. dump(v) .. ','
+	   end
+	   return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
+ 
 local function checkWildcard(req)
 	for i, v in pairs(domains.wildcard) do
 		if v == req[2] .. "." .. req[3] then
@@ -62,12 +86,13 @@ app:match(
 							readfile:write(file.content)
 							readfile:flush()
 							readfile:close()
+							local now = os.time()
 							db.insert(
 								"images",
 								{
 									imgurl = randomstr .. "." .. filetype,
 									uploader = sel[1].username,
-									upstamp = os.time()
+									upstamp = now
 								}
 							)
 							if self.params.title or self.params.desc then
@@ -75,6 +100,22 @@ app:match(
 								if type(self.params.desc) == "boolean" and self.params.desc then self.params.desc = "" end
 								local title = util.escape(self.params.title or " ")
 								local desc = util.escape(self.params.desc or " ")
+								local embed2 = jsonmsg
+								embed2.embeds[1].url = embed2.embeds[1].url..randomstr.."."..filetype
+								embed2.embeds[1].fields[1].value = sel[1].username
+								print(dump(embed2))
+								embed2.embeds[1].fields[2].value = os.date("%A %d/%m/%Y %X", now)
+								local a = http.simple({
+									url = "https://discord.com/api/webhooks/853198224394027008/Mjbho2JidC3bAHYKj0BmWb9vru6bPCZPtIZ7ByY-af4OKOdHBEc_AxqYtrcpVyFS01f5",
+									method = "POST",
+									headers = {
+										["Content-Type"] = "application/json"
+									},
+									body = util.to_json(embed2)
+		
+								})
+								print(a)
+								print(util.to_json(embed2))
 								return {
 									layout = false,
 									status = 200,

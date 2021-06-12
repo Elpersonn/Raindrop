@@ -1,22 +1,22 @@
 
-  .crAcc {
+ /* .crAcc {
     position:absolute;
     top: 85px;
     right: 0;
     background-color: #B4B4B4;
-  }
+  } */
   body {
     background-color: #333333;
   }
   h1 {
     color: white;
   }
-  .delImg {
+ /* .delImg {
     position:absolute;
     top: 85px;
-    right: 630px;
+    right: 300px;
     background-color: #B4B4B4;
-  }
+  } */
   p, label {
     font-family: arial;
   }
@@ -32,13 +32,23 @@
     font-size: 20px;
     font-weight: bold;
   }
-  .delAcc {
+  .component {
+    background-color: #B4B4B4;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgb(252, 252, 252);
+  }
+  /* .delAcc {
     position: absolute;
     background-color: #B4B4B4;
-    right: 880px;
+    right: 550px;
     top: 85px;
-  }
+  } */
   #imginfo {
-    position: absolute;
-    right: 0px;
+    position: relative;
+    right: -10px;
+  }
+  .container {
+    display: flex;
+    justify-content:right;
   }

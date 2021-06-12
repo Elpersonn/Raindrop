@@ -2,7 +2,8 @@
  -- SQL Setup file. Do not modify unless you know what you're doing.
 CREATE TABLE IF NOT EXISTS invites (
     inviteid SERIAL NOT NULL,
-    invite TEXT NOT NULL
+    invite TEXT NOT NULL,
+    PRIMARY KEY (inviteid)
 );
 CREATE TABLE IF NOT EXISTS users (
     userid SERIAL NOT NULL,

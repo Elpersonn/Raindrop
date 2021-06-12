@@ -20,6 +20,12 @@ $(function () {
             }
         }
     });
+    $("#inviteCreated").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: "20%"
+    });
     $("#error").dialog({
         autoOpen: false,
         modal: true,
@@ -62,19 +68,22 @@ $(function () {
     $("#send").click(function (e) {
         e.preventDefault();
         $.ajax({
-            url: "/admin/createuser",
+            url: "/admin/createinvite",
             type: "POST",
             dataType: "json",
             data: ({
-                username: document.getElementById("user").value,
-                passwd: document.getElementById("passwd").value,
-                accType: $('input[name="perms"]:checked').val(),
+                amount: $("#amount").val() 
             }),
             success: function (response) {
                 var resp = response;
-                $("#accname").text("Account username: " + resp.accName);
-                $("#pass").text(resp.passwd);
-                $("#apikey").text(resp.apikey);
+                $("#invitetable td").remove() ;
+
+                $.each(resp.msg, function(i,v) {
+                    var row = document.getElementById("invitetable").insertRow(-1);
+                    var cell = row.insertCell(0);
+                    cell.innerHTML = v;
+                });
+                $("#inviteCreated").dialog("open");
                 $("#CraCCmodal").dialog("open");
             },
             error: function (xhr, text) {
