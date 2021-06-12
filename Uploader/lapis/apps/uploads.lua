@@ -95,12 +95,7 @@ app:match(
 									upstamp = now
 								}
 							)
-							if self.params.title or self.params.desc then
-								if type(self.params.title) == "boolean" and self.params.title then self.params.title = "" end
-								if type(self.params.desc) == "boolean" and self.params.desc then self.params.desc = "" end
-								local title = util.escape(self.params.title or " ")
-								local desc = util.escape(self.params.desc or " ")
-								local embed2 = jsonmsg
+							local embed2 = jsonmsg
 								embed2.embeds[1].url = embed2.embeds[1].url..randomstr.."."..filetype
 								embed2.embeds[1].fields[1].value = sel[1].username
 								print(dump(embed2))
@@ -114,8 +109,11 @@ app:match(
 									body = util.to_json(embed2)
 		
 								})
-								print(a)
-								print(util.to_json(embed2))
+							if self.params.title or self.params.desc then
+								if type(self.params.title) == "boolean" and self.params.title then self.params.title = "" end
+								if type(self.params.desc) == "boolean" and self.params.desc then self.params.desc = "" end
+								local title = util.escape(self.params.title or " ")
+								local desc = util.escape(self.params.desc or " ")
 								return {
 									layout = false,
 									status = 200,
