@@ -15,6 +15,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
+    display: inline;
   }
   div .mdl-textfield__label:after {
     background: teal;
@@ -26,10 +27,13 @@
 .mdl-textfield__label{
     color: #fff;
 }
-#emaildiv {
-    position: relative;
-}
+
 h1 {
     text-align: center;
     color: white;
+    position: relative;
+    top: 80px;
+}
+* {
+  overflow: hidden;
 }

@@ -24,7 +24,8 @@ $(function () {
         autoOpen: false,
         modal: true,
         resizable: false,
-        width: "20%"
+        width: "20%",
+        height: 500
     });
     $("#error").dialog({
         autoOpen: false,
@@ -76,7 +77,8 @@ $(function () {
             }),
             success: function (response) {
                 var resp = response;
-                $("#invitetable td").remove() ;
+                $("#invitetable tr").remove();
+                $("#invitetable").append("<tr><th>Invite Code</th></tr>");
 
                 $.each(resp.msg, function(i,v) {
                     var row = document.getElementById("invitetable").insertRow(-1);

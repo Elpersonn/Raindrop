@@ -35,13 +35,16 @@
 </div>
 
 <div id="inviteCreated" title="Generated invite codes">
-  <table id="invitetable">
+  <div id="tablecont">
+    <table id="invitetable">
     <tr>
       <th>Invite code</th>
     </tr>
     <tr>
     </tr>
   </table>
+  </div>
+  
 </div>
 <div id="error" title="Error">
   <p id="errormsg">An error occured while performing the operation.</p>

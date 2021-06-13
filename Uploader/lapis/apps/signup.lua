@@ -4,6 +4,7 @@ local app = require "app"
 local validate = require("lapis.validate")
 local respond_to = require("lapis.application").respond_to
 local json_params = require("lapis.application").json_params
+local http = require("lapis.nginx.http")
 local bcrypt = require("bcrypt")
 --[[local smtp = require("socket.smtp")
 local ssl = require('ssl')
@@ -56,13 +57,19 @@ app:match("/signup", respond_to({
         })
         local res = db.select("invite FROM invites WHERE invite = ?", self.params.invite)
         if res[1] then 
-            local password = string.random(25)
-            local akey = string.random(20)
+            local sel = db.select("username FROM users WHERE username = ?", self.params.username)
+            if sel[1] then
+                return { status = 409, json = { error = "Username taken" }}
+            end
+            local rgen = string.split(http.simple("https://www.random.org/strings/?num=2&len=20&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new"), "\n")
+            local password = rgen[2]..string.random(5)
+            local akey = rgen[1]
             db.delete("invites", { invite = self.params.invite })
             db.insert("users", {
                 username = self.params.username,
                 apikey = akey,
-                passwd = bcrypt.digest(password, rounds)
+                passwd = bcrypt.digest(password, rounds),
+                perms = 1
             })
             --message.body = string.format(message.body, akey, password)
             --message.headers.to = string.format(message.headers.to, self.params.email)
@@ -79,14 +86,15 @@ app:match("/signup", respond_to({
             if not k then
                 return { status = 500, json = { error = e}}
             end]]
-            local a = string.format(mailmsg, akey, password)
+            local formmail = string.format(mailmsg, akey, password)
             local ok, err = mailer:send({
                 from = "Raindrop Uploader",
                 to = { self.params.email },
                 subject = "Raindrop account activation",
-                text = a
+                text = formmail
             })
             if not ok then print(err) end
+            return { status = 201, json = { msg = "Check your inbox!"}}
         else
             return { status = 400}
         end

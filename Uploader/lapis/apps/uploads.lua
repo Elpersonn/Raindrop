@@ -7,7 +7,7 @@ local http = require("lapis.nginx.http")
 local util = require("lapis.util")
 local respond_to = require("lapis.application").respond_to
 --app.__base = app
-local forceDownload = {"html", "php", "css", "js", "sh", "ttf", "otf", "exe", "htm"} -- At first I wanted this to forceDownload the files but now I decided to make it just not pass them at all.
+local forceDownload = {"html", "php", "css", "js", "sh", "ttf", "otf", "exe", "htm", "7z"} -- At first I wanted this to forceDownload the files but now I decided to make it just not pass them at all.
 local jsonmsg = {
 	["embeds"] = {{
         ["title"] = "New upload",
@@ -20,7 +20,7 @@ local jsonmsg = {
     }}
 }
 
-local function dump(o)
+--[[local function dump(o)
 	if type(o) == 'table' then
 	   local s = '{ '
 	   for k,v in pairs(o) do
@@ -31,7 +31,7 @@ local function dump(o)
 	else
 	   return tostring(o)
 	end
- end
+ end]] -- IF YOU NEED TO DUMP A TABLE; REMOVE THIS COMMENT
  
 local function checkWildcard(req)
 	for i, v in pairs(domains.wildcard) do
@@ -64,17 +64,36 @@ app:match(
 		{
 			POST = function(self) -- TODO: Rewrite this partially
 				if self.params.key ~= nil and self.params.file and self.params.domain then
-					local sel = db.select("username, apikey FROM users WHERE apikey = ?", self.params.key)
+					local sel = db.select("username, apikey, quota FROM users WHERE apikey = ?", self.params.key)
 					local file = self.params.file
 					local split = string.split(file.filename, ".")
 					local filetype = split[#split]
 
 					if sel[1] ~= nil and file and not table.find(forceDownload, filetype) then
+						if sel[1].quota + #file.content > 104857600 then
+								return { layout = false, status = 429, json = { error = "You are being rate-limited!"}}
+							else
+								db.update("users", {
+									quota = sel[1].quota + #file.content,
+									
+								}, {
+									apikey = sel[1].apikey
+								})
+							end
 						local domains = require("domains")
 						local splitdomain = string.split(self.params.domain, ".")
 						local randomstr = string.random(6)
 						local readfile = assert(io.open("/srv/lapis/html/files/" .. randomstr .. "." .. filetype, "w"))
-
+						local checkimg = db.select("imgurl FROM images WHERE imgurl = ?", randomstr.."."..filetype)
+						if checkimg[1] then
+							while true do
+								randomstr = http.simple("https://www.random.org/strings/?num=1&len=6&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new")
+								local sel2 = db.select('imgurl FROM images WHERE imgurl = ?', randomstr.."."..filetype)
+								if not sel2[1] then
+									break
+								end
+							end
+						end
 						if #splitdomain == 3 and not checkWildcard(splitdomain) then
 							return {layout = false, status = 400, json = {error = "Provided domain isn't a wildcard!"}}
 						elseif #splitdomain == 2 and not checkDomain(splitdomain) then
@@ -92,7 +111,8 @@ app:match(
 								{
 									imgurl = randomstr .. "." .. filetype,
 									uploader = sel[1].username,
-									upstamp = now
+									upstamp = now,
+									lastvisited = now
 								}
 							)
 							local embed2 = jsonmsg
@@ -116,7 +136,7 @@ app:match(
 								local desc = util.escape(self.params.desc or " ")
 								return {
 									layout = false,
-									status = 200,
+									status = 201,
 									json = {
 										url = "https://" ..
 											self.params.domain .. "/" .. randomstr .. "." .. filetype .. "?title=" .. title .. "&desc=" .. desc
@@ -125,13 +145,13 @@ app:match(
 							else
 								return {
 									layout = false,
-									status = 200,
+									status = 201,
 									json = {url = "https://" .. self.params.domain .. "/" .. randomstr .. "." .. filetype}
 								}
 							end
 						end
 					else
-						return {layout = false, status = 400, json = {error = "File missing / Illegal file type"}}
+						return {layout = false, status = 415, json = {error = "Illegal file type / Bad API key"}}
 					end
 				else
 					return {layout = false, status = 400, json = {error = "Illegal!"}}

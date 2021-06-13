@@ -43,6 +43,7 @@ function string.random(length)
 	end
 end
   
+
 app:enable("etlua")
 app:include("apps.uploads")
 app:include("apps.admin")
@@ -76,14 +77,19 @@ app:get("/*", function(self)
     local res = ngx.location.capture("/files/"..self.params.splat)
 	print(res.status)
 	if res.status then
-	   if self.params.title or self.params.desc then
-			self.title = self.params.title or self.params.splat
-			self.desc = self.params.desc or self.params.splat
+	   if self.params.t or self.params.d then
+			self.t = self.params.t or "%20"
+			self.d = self.params.d or "%20"
 			self.type = string.split(mime[filetype], "/")[1] 
 			self.mime = mime[filetype]
 			return { layout = false, render = "image" }
 		else
-			ngx.exec('/files/'..self.params.splat)
+			db.update('images', {
+				lastvisited = os.time()
+			}, {
+				imgurl = self.params.splat
+			})
+			ngx.exec('/files/'..self.params.splat)	
 		end
 	end
 end)

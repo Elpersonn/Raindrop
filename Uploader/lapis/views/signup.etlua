@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <link rel="stylesheet" href="/static/css/signup.css">
+<link rel="stylesheet" href="/static/css/mdl-jquery-modal-dialog.css">
+<script src="/static/js/mdl-jquery-modal-dialog.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script src="/static/js/signup.js"></script>
 <h1>Raindrop sign up form</h1>
