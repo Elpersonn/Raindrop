@@ -20,7 +20,7 @@ if ngx.worker.id() == 0 then
             clearDB()
             local sel = db.select("imgurl, lastvisited FROM images")
             for i,v in pairs(sel) do
-                if v.lastvisited - os.time() >= 1209600 then
+                if os.time() - v.lastvisited >= 1209600 then
                     assert(os.remove("/srv/lapis/html/files/"..v.imgurl))
                     local res = db.delete("images", "imgurl = ?", v.imgurl)
                 end
