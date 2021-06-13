@@ -139,7 +139,7 @@ app:match(
 									status = 201,
 									json = {
 										url = "https://" ..
-											self.params.domain .. "/" .. randomstr .. "." .. filetype .. "?title=" .. title .. "&desc=" .. desc
+											self.params.domain .. "/" .. randomstr .. "." .. filetype .. "?t=" .. title .. "&d=" .. desc
 									}
 								}
 							else
