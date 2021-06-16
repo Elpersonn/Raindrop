@@ -4,7 +4,8 @@
 <meta name="viewport" content="width=device-width,minimum-scale=0.1" />
 <meta property="og:url" content="/<%= params.splat %>" />
 <meta property="og:title" content="<%= t or " " %>"  />
-<meta property="og:description" content="<%= d %>" />
+<meta property="og:description" content="<%= d or " "%>" />
+<meta name="theme-color" content="<%= "#"..params.color or "#000000" %>">
 <% if type == "image" then %>
 <meta property="og:image" content="/<%= params.splat %>" />
 <meta property="twitter:card" content="summary_large_image" />
@@ -14,7 +15,6 @@
 <meta property="og:video" content="/<%= params.splat %>" />
 <meta property="og:type" content="video.other" />
 <% end %>
-
 </head>
 <body style="background-color: black">
 <% if type == "image" then %>	

@@ -78,12 +78,13 @@ app:get("/*", function(self)
 	print(res.status)
 	if res.status then
 	   if self.params.t or self.params.d then
-			self.t = self.params.t or "%20"
-			self.d = self.params.d or "%20"
+			self.t = self.params.t or " "
+			self.d = self.params.d or " "
 			self.type = string.split(mime[filetype], "/")[1] 
 			self.mime = mime[filetype]
 			return { layout = false, render = "image" }
 		else
+			print(self.req.headers["User-Agent"])
 			db.update('images', {
 				lastvisited = os.time()
 			}, {
@@ -105,6 +106,9 @@ app:get("/domains", function(self)
 	end
 	return { layout = "dark_layout", render = "domains"}
 end)
+--[[app:get("/oembed", function (self)
+	return { layout = false, json = { title = self.params.t}}
+end)]]
 function app:handle_404()
 	return { layout = "layout", render = "404", status = 404 }
 end

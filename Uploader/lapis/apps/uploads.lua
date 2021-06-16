@@ -134,12 +134,13 @@ app:match(
 								if type(self.params.desc) == "boolean" and self.params.desc then self.params.desc = "" end
 								local title = util.escape(self.params.title or " ")
 								local desc = util.escape(self.params.desc or " ")
+								local color = self.params.color or " "
 								return {
 									layout = false,
 									status = 201,
 									json = {
 										url = "https://" ..
-											self.params.domain .. "/" .. randomstr .. "." .. filetype .. "?t=" .. title .. "&d=" .. desc
+											self.params.domain .. "/" .. randomstr .. "." .. filetype .. "?t=" .. title .. "&d=" .. desc.."&color="..color
 									}
 								}
 							else

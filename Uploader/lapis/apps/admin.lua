@@ -56,12 +56,12 @@ local function checkAdmin(sess)
     end
 end
 --  and checkAdmin(self.session.USER)
-app:match("/admin/getusers", respond_to({
+--[[app:match("/admin/getusers", respond_to({
     GET = function(self)
         local dbr = db.select("* FROM users")
         return { json = {dbres = dbr}}
     end,
-}))
+}))]]
 app:match("/admin", respond_to({
     GET = function(self)
         local sel = db.select("* FROM sessions WHERE sessid = ?", self.session.USER or "none")
