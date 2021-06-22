@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.3"
 
 services:
   db:
@@ -8,16 +8,20 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=uploader # Use lowercase.
-      - POSTGRES_USER=admin # Use lowercase.
-      - POSTGRES_PASSWORD=Pj+5K]hDT:FT>(8. # CHANGE THIS TO SOMETHING LONG.
+      - POSTGRES_DB= # Use lowercase.
+      - POSTGRES_USER= # Use lowercase.
+      - POSTGRES_PASSWORD= # CHANGE THIS TO SOMETHING LONG.
   web:
     volumes:
       - ./Uploader:/srv
     build: ./Uploader
-    environment:
-      - DOMAIN=YOURDOMAIN.TLD # Replace this with your domain.
     ports:
       - "80:8080"
     depends_on:
       - db
+  bot:
+    volumes:
+      - ./Bot:/srv
+    build: ./Bot
+    environment: 
+      - TOKEN=
