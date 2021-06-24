@@ -2,7 +2,6 @@
 V 1.2.6b
 Lua based ShareX uploader.
 ## Installation
-**FOR INSTALLATION PLEASE CONTACT ME PRIVATELY AS THIS GUIDE IS NOT FINISHED AND THINGS MAY CHANGE**
 1. Clone this / download this repository.
 2. Modify docker-compose.yml
 3. Modify Uploader/lapis/domains.lua

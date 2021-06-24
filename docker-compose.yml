@@ -8,9 +8,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB=uploader # Use lowercase.
-      - POSTGRES_USER=admin # Use lowercase.
-      - POSTGRES_PASSWORD=dqRcBKPe2Kjov0mHvXGQ # CHANGE THIS TO SOMETHING LONG.
+      - POSTGRES_DB= # Use lowercase.
+      - POSTGRES_USER= # Use lowercase.
+      - POSTGRES_PASSWORD= # CHANGE THIS TO SOMETHING LONG.
   web:
     volumes:
       - ./Uploader:/srv
@@ -24,8 +24,8 @@ services:
       - ./Bot:/srv
     build: ./Bot
     environment: 
-      - TOKEN=ODUyNTY1NjQ1ODYxMzIyNzgy.YMIroQ.W2JWOjK_p2QLFjidadfbzlx_g7s
-      - DBPASS=dqRcBKPe2Kjov0mHvXGQ
+      - TOKEN=
+      - DBPASS=
     depends_on: 
       - db
       - web
