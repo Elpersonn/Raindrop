@@ -159,7 +159,7 @@ app:match(
 				end
 			end,
 			GET = function(self)
-				return "Raindrop 1.1.6b"
+				return "Raindrop 1.3.6"
 			end
 		}
 	)
