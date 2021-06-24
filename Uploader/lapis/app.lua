@@ -19,14 +19,41 @@ function app:include(module)
 	  self.__class.include(self, subapp, nil, self)
 	end
 end
+local charset = {}
+
+
+-- qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890
+for i = 48, 57 do
+	table.insert(charset, string.char(i))
+end
+for i = 65, 90 do
+	table.insert(charset, string.char(i))
+end
+for i = 97, 122 do
+	table.insert(charset, string.char(i))
+end
+
+function string.random(length)
+	math.randomseed(os.time())
+
+	if length > 0 then
+		return string.random(length - 1) .. charset[math.random(1, #charset)]
+	else
+		return ""
+	end
+end
   
+
 app:enable("etlua")
 app:include("apps.uploads")
+app:include("apps.admin")
+app:include("apps.shorten")
+app:include("apps.signup")
 app:get("/", function(self)
-  return "Raindrop 0.1.6"
+    	ngx.redirect("https://shoppy.gg/product/WBAO8BR")
 end)
 
-local function mysplit (inputstr, sep)
+function string.split (inputstr, sep)
         if sep == nil then
                 sep = "%s"
         end
@@ -45,27 +72,44 @@ end
 end]] -- Keeping this for "later" if I ever need it.
 
 app:get("/*", function(self)
-    self.domain = os.getenv("DOMAIN")
-	local filesplit = mysplit(self.params.splat, ".")
+	local filesplit = string.split(self.params.splat, ".")
 	local filetype = filesplit[#filesplit]
     local res = ngx.location.capture("/files/"..self.params.splat)
+	print(res.status)
 	if res.status then
-	   if self.params.title or self.params.desc then
-			self.title = self.params.title or self.params.splat
-			self.desc = self.params.desc or self.params.splat
-			self.type = mysplit(mime[filetype], "/")[1] 
+	   if self.params.t or self.params.d then
+			self.t = self.params.t or " "
+			self.d = self.params.d or " "
+			self.type = string.split(mime[filetype], "/")[1] 
 			self.mime = mime[filetype]
 			return { layout = false, render = "image" }
-		
-	   else
-		ngx.exec("/files/"..self.params.splat)
-	   end	
-	else
-		return { layout = "layout", render = "404", status = 404 }		
+		else
+			print(self.req.headers["User-Agent"])
+			db.update('images', {
+				lastvisited = os.time()
+			}, {
+				imgurl = self.params.splat
+			})
+			ngx.exec('/files/'..self.params.splat)	
+		end
 	end
 end)
-
+app:get("/domains", function(self)
+	local domains = require('domains')
+	self.dom = ""
+	self.wdom = ""
+	for i,v in pairs(domains.ndomains) do
+		self.dom = self.dom..", "..v
+	end
+	for i,v in pairs(domains.wildcard) do
+		self.wdom = self.wdom.." "..v
+	end
+	return { layout = "dark_layout", render = "domains"}
+end)
+--[[app:get("/oembed", function (self)
+	return { layout = false, json = { title = self.params.t}}
+end)]]
 function app:handle_404()
-	return { layout = "layout", render = "404", status = "404" }
+	return { layout = "layout", render = "404", status = 404 }
 end
 return app

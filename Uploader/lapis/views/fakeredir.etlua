@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta property="og:url" content="/s/<%= params.splat %>" />
+<meta property="og:site_name" content="Raindrop1.2.6b">
+<meta property="og:title" content="<%= params.t or " " %>"  />
+<meta property="og:description" content="<%= params.d or " "%>" />
+<!-- <link type="application/json+oembed" href="/oembed?t=<%=t or " "%>&d=<%=d or " "%>"> -->
+</head>
+<body>
+<h1> deez nuts </h1>
+</body>
+</html>

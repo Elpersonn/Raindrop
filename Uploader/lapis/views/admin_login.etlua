@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
   <head>
+  <title>Admin Login</title>
     <meta charset="utf-8">
     <style>
             input.in {
@@ -47,6 +49,8 @@
 
             }
     </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function closeModal() {
             document.getElementsByClassName("modal")[0].style.display = "none";
@@ -56,10 +60,31 @@
             document.getElementById("msg").innerHTML = msg;
             document.getElementsByClassName("modal")[0].style.display = "inline";
         };
+        function login() {
+            $.ajax({
+                url: '/admin/login',
+                type: 'POST',
+                dataType: 'json',
+                data: ({ passwd: document.getElementById("passwd").value, username: document.getElementById("name").value }),
+                complete: function(xhr, text) {
+                    console.log(xhr.status)
+                    if (xhr.status == 200) {
+                        openModal("Login successful! Redirecting...");
+                        setTimeout(function(){window.location.replace("/admin");}, 2000); // we gotta give the user time to read
+                        
+                    } else if ( xhr.status == 401 ) {
+                        openModal("Login failed!");
+                    }
+                }
+
+            });
+
+        };
     </script>
-    <title>Admin Login</title>
+    
   </head>
   <body>
+  
        <div class="modal">
             <div class="modal-content">
 
@@ -76,7 +101,7 @@
                         <input type="text" id="name" class="in"/>
                         <label for="passwd"> Password:</label>
                         <input type="password" id="passwd" class="in"/>
-                        <input type="button" value="Login" onclick="openModal(document.getElementById('name').value)"/>
+                        <input type="button" value="Login" onclick="login();"/>
                     </form>
                 </div>
             </div>

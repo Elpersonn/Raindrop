@@ -1,0 +1,3 @@
+<title>RAINDROP DOMAINS</title>
+<h1 style="color:white"> DOMAINS: <%= dom %> </h1>
+<h1 style="color:white"> WILDCARD DOMAINS: <%= wdom %> </h1>

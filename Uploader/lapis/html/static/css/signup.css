@@ -1,0 +1,39 @@
+.container {
+    height: 300px;
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid white;
+  }
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    display: inline;
+  }
+  div .mdl-textfield__label:after {
+    background: teal;
+  }
+  .mdl-textfield__input{
+    color: #fff;
+}
+
+.mdl-textfield__label{
+    color: #fff;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    position: relative;
+    top: 80px;
+}
+* {
+  overflow: hidden;
+}

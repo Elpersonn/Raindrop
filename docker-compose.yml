@@ -25,3 +25,7 @@ services:
     build: ./Bot
     environment: 
       - TOKEN=
+      - DBPASS=
+    depends_on: 
+      - db
+      - web
