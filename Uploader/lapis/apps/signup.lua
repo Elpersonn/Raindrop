@@ -18,36 +18,11 @@ local mailer, err = mail.new({
     host = "smtp.gmail.com",
     port = 587,
     starttls = true,
-    username = "raindrop.uploader@gmail.com",
-    password = "ynvc9W7mrG4YYLd",
+    username = "",
+    password = "",
   })
 local mailmsg = "Thank you for activating your raindrop account.\n You may upload pictures using these credentials\nAPI KEY: %s\n PASSWORD: %s"
 local rounds = 10
---[[local message = {
-    headers = {
-        subject = "Raindrop account activation",
-        to = "%s",
-        from = "raindrop.uploader@gmail.com"
-    },
-    body = "Thank you for activating your raindrop account.\n You may upload pictures using these credentials\nAPI KEY: %s\n PASSWORD: %s"
-}]]
---[[function sslCreate()
-    local sock = socket.tcp()
-    return setmetatable({
-        connect = function(_, host, port)
-            local r, e = sock:connect(host, port)
-            if not r then return r, e end
-            sock = ssl.wrap(sock, {mode='client', protocol='tlsv1'})
-            return sock:dohandshake()
-        end
-    }, {
-        __index = function(t,n)
-            return function(_, ...)
-                return sock[n](sock, ...)
-            end
-        end
-    })
-end]]
 app:match("/signup", respond_to({
     GET = function(self)
         return {layout = "dark_layout", render = "signup"}
@@ -77,10 +52,10 @@ app:match("/signup", respond_to({
             --message.body = string.format(message.body, akey, password)
             --message.headers.to = string.format(message.headers.to, self.params.email)
             --[[local k, e = smtp.send{
-                from = "raindrop.uploader@gmail.com",
+                from = "",
                 rcpt = self.params.email,
-                user = "raindrop.uploader@gmail.com",
-                password = "ynvc9W7mrG4YYLd",
+                user = "",
+                password = "",
                 port = 465,
                 server = "smtp.gmail.com",
                 source = smtp.message(message),

@@ -5,7 +5,7 @@
 <meta property="og:url" content="/<%= params.splat %>" />
 <meta property="og:title" content="<%= t or " " %>"  />
 <meta property="og:description" content="<%= d or " "%>" />
-<meta name="theme-color" content="<%= "#"..params.color or "#000000" %>">
+<meta name="theme-color" content="<%= "#"..params.color or "000000" %>">
 <% if type == "image" then %>
 <meta property="og:image" content="/<%= params.splat %>" />
 <meta property="twitter:card" content="summary_large_image" />

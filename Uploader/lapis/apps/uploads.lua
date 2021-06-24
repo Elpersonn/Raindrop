@@ -5,6 +5,7 @@ local db = require("lapis.db")
 local app = require "app"
 local http = require("lapis.nginx.http")
 local util = require("lapis.util")
+local conf = require('lapis.config').get()
 local respond_to = require("lapis.application").respond_to
 --app.__base = app
 local forceDownload = {"html", "php", "css", "js", "sh", "ttf", "otf", "exe", "htm", "7z"} -- At first I wanted this to forceDownload the files but now I decided to make it just not pass them at all.
@@ -58,10 +59,8 @@ function table.find(table, value)
 	return nil
 end
 
-app:match(
-	"/upload",
-	respond_to(
-		{
+app:match("/upload",
+	respond_to({
 			POST = function(self) -- TODO: Rewrite this partially
 				if self.params.key ~= nil and self.params.file and self.params.domain then
 					local sel = db.select("username, apikey, quota FROM users WHERE apikey = ?", self.params.key)
@@ -106,8 +105,7 @@ app:match(
 							readfile:flush()
 							readfile:close()
 							local now = os.time()
-							db.insert(
-								"images",
+							db.insert("images",
 								{
 									imgurl = randomstr .. "." .. filetype,
 									uploader = sel[1].username,
@@ -121,7 +119,7 @@ app:match(
 								print(dump(embed2))
 								embed2.embeds[1].fields[2].value = os.date("%A %d/%m/%Y %X", now)
 								local a = http.simple({
-									url = "https://discord.com/api/webhooks/853198224394027008/Mjbho2JidC3bAHYKj0BmWb9vru6bPCZPtIZ7ByY-af4OKOdHBEc_AxqYtrcpVyFS01f5",
+									url = conf.uplog,
 									method = "POST",
 									headers = {
 										["Content-Type"] = "application/json"

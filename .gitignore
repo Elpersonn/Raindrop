@@ -2,3 +2,5 @@ Uploader/lapis/html/files
 PSQLDATA
 Uploader/lapis/logs
 Uploader/lapis/nginx.conf.compiled
+docker-compose.yml
+Uploader/lapis/config.lua
