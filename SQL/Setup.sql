@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS users (
     username TEXT NOT NULL,
     passwd TEXT NOT NULL,
     apikey TEXT NOT NULL,
-    perms TEXT NOT NULL,
+    perms SMALLINT NOT NULL,
+    quota BIGINT NOT NULL,
+    duserid BIGINT NOT NULL,
     PRIMARY KEY (userid)
 );
 CREATE TABLE IF NOT EXISTS sessions
@@ -23,6 +25,7 @@ CREATE TABLE IF NOT EXISTS images (
     imgurl TEXT NOT NULL,
     uploader TEXT NOT NULL,
     upstamp BIGINT NOT NULL,
+    lastvisited BIGINT NOT NULL,
     PRIMARY KEY (imgurl)
 );
 CREATE TABLE IF NOT EXISTS shorturl (
