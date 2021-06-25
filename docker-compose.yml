@@ -8,8 +8,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_DB= # Use lowercase.
-      - POSTGRES_USER= # Use lowercase.
+      - POSTGRES_DB=uploader # Use lowercase.
+      - POSTGRES_USER=admin # Use lowercase.
       - POSTGRES_PASSWORD= # CHANGE THIS TO SOMETHING LONG.
   web:
     volumes:
