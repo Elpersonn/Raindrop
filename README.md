@@ -1,3 +1,2 @@
-# Raindrop
-V 1.3.7
-Lua based ShareX uploader.
+# NOTICE
+# WE'VE MOVED TO [GITLAB](https://owo.codes/Elperson/Raindrop-src)
